@@ -105,7 +105,7 @@ namespace GeneticAlgorithm
         public int NoImproveThreshold;
         public int NumChildrenToSpawn;
 
-        public GeneticAlgorithmConfig(double goal = 50, int noImprovementThreshold = 5000, int numChildrenToSpawn = 5, int numberOfIterations = 100000)
+        public GeneticAlgorithmConfig(double goal = 20, int noImprovementThreshold = 5000, int numChildrenToSpawn = 5, int numberOfIterations = 100000)
         {
             Goal = goal;
             NoImproveThreshold = noImprovementThreshold;

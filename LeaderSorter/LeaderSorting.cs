@@ -41,25 +41,27 @@ namespace GeneticAlgorithm.LeaderSorter
                 var fitnessColourGroups =
                     LeaderGroups.Sum(leaderGroup => leaderGroup.FitnessFunction(GoodFitBonus, BadFitReduction));
                 var protectedProgramFitness =
-                    (Math.Max(0,LeaderGroups.Count(x => x.LeaderList.Any(y => ProtectedPrograms.ContainsKey(y.Program))) - Configuration.ProtectedGroupSpreadFactor)) * BadFitReduction * 10;
+                    (Math.Max(0, LeaderGroups.Count(x => x.LeaderList.Any(y => ProtectedPrograms.ContainsKey(y.Program))) - Configuration.ProtectedGroupSpreadFactor)) * BadFitReduction * 10;
 
                 var traitFitness = CalculateTraitFitness();
 
                 var leaderTypeFitness = CalculateLeaderTypeFitness();
 
-                return fitnessColourGroups + protectedProgramFitness + traitFitness;
+                return fitnessColourGroups + protectedProgramFitness + traitFitness + leaderTypeFitness;
             }
             protected internal set { }
         }
 
-        private object CalculateLeaderTypeFitness()
+        private double CalculateLeaderTypeFitness()
         {
-            
+            var dh = LeaderGroups.Max(x => x.Huges) - LeaderGroups.Min(x => x.Huges);
+            var db = LeaderGroups.Max(x => x.Bigs) - LeaderGroups.Min(x => x.Bigs);
+            return (dh + db) * BadFitReduction;
         }
 
         private double CalculateTraitFitness()
         {
-            var dd = LeaderGroups.Max(x => x.DirectorshipsHeld) - LeaderGroups.Min(x=>x.DirectorshipsHeld);
+            var dd = LeaderGroups.Max(x => x.DirectorshipsHeld) - LeaderGroups.Min(x => x.DirectorshipsHeld);
             var dc = LeaderGroups.Max(x => x.CoopsInFall) - LeaderGroups.Min(x => x.CoopsInFall);
             var dh = LeaderGroups.Max(x => x.Hems) - LeaderGroups.Min(x => x.Hems);
             var dr = LeaderGroups.Max(x => x.Returnings) - LeaderGroups.Min(x => x.Returnings);

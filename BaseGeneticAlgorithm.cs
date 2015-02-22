@@ -12,7 +12,7 @@ namespace GeneticAlgorithm
             Fitness = 0;
             PopulationSize = 0;
             GoodFitBonus = 3;
-            BadFitReduction = -1;
+            BadFitReduction = -5;
         }
 
         public uint PopulationSize { get; set; }

@@ -39,6 +39,16 @@ namespace GeneticAlgorithm.LeaderSorter
             get { return LeaderList.Count(leader => leader.Traits.Contains(Traits.Hem)); }
         }
 
+        public int Bigs
+        {
+            get { return LeaderList.Count(leader => leader.LeaderType.Equals(LeaderType.Big)); }
+        }
+
+        public int Huges
+        {
+            get { return LeaderList.Count(leader => leader.LeaderType.Equals(LeaderType.Huge)); }
+        }
+
         public double FitnessFunction(double goodFitBonus, double badFitBonus)
         {
             var fitness = 0.0;
