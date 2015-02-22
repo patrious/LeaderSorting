@@ -37,7 +37,6 @@ namespace GeneticAlgorithm.LeaderSorter.DataInjest
                 }
 
             }
-
             iga.PrepWorkspace();
         }
 

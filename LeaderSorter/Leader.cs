@@ -30,26 +30,36 @@ namespace GeneticAlgorithm.LeaderSorter
         private string _program;
         private List<Traits> _traits;
 
-        public Guid LeaderGuid;
+        public Guid LeaderId;
         public LeaderType LeaderType;
         public List<Guid> BlackList;
         public List<Guid> WhiteList;
 
-        private List<string> _rawBlackList;
-        private List<string> _rawWhiteList;
+        public string PublicName
+        {
+            get
+            {
+                return !String.IsNullOrEmpty(_perferredname)
+                    ? String.Format("{0} {1}", _perferredname, _lastname)
+                    : String.Format("{0} {1}", _firstname, _lastname);
+            }
+        }
+
+        public List<string> RawBlackList;
+        public List<string> RawWhiteList;
 
 
         public Leader(string lastname, string firstname, string perferredname, string program, LeaderType leaderType, List<Traits> traits, List<string> rawWhiteList, List<string> rawBlackList)
         {
-            LeaderGuid = Guid.NewGuid();
+            LeaderId = Guid.NewGuid();
             this.LeaderType = leaderType;
             _lastname = lastname;
             _firstname = firstname;
             _perferredname = perferredname;
             _program = program;
             _traits = traits;
-            _rawBlackList = rawBlackList;
-            _rawWhiteList = rawWhiteList;
+            RawBlackList = rawBlackList;
+            RawWhiteList = rawWhiteList;
         }
 
         public override string ToString()
@@ -66,6 +76,7 @@ namespace GeneticAlgorithm.LeaderSorter
             WhiteList.ForEach(x => whitelistnames.AppendFormat("{0} ", x.ToString()));
             return string.Format("{0} \t: F - {1} : E - {2}", this, whitelistnames, blacklistnames);
         }
+        
     }
 
     public static class LeaderExtensions

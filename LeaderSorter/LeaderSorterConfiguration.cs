@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GeneticAlgorithm.LeaderSorter
 {
+    [Serializable]
     public class LeaderSorterConfiguration
     {
         public int NumberOfTeams { get; set; }

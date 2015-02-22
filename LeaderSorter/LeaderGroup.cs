@@ -25,8 +25,8 @@ namespace GeneticAlgorithm.LeaderSorter
             LeaderList.ForEach(leader =>
             {
                 //The Hard Part
-                fitness += leader.WhiteList.Count(friend => LeaderList.Any(x => x.LeaderGuid == friend)) * goodFitBonus;
-                fitness -= leader.BlackList.Count(enemy => LeaderList.Any(x => x.LeaderGuid == enemy)) * badFitBonus;
+                fitness += leader.WhiteList.Count(friend => LeaderList.Any(x => x.LeaderId == friend)) * goodFitBonus;
+                fitness -= leader.BlackList.Count(enemy => LeaderList.Any(x => x.LeaderId == enemy)) * badFitBonus;
             }
             );
             return fitness;

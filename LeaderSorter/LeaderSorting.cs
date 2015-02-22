@@ -91,7 +91,27 @@ namespace GeneticAlgorithm.LeaderSorter
 
         public void PrepWorkspace()
         {
-            
+            //TODO: Find more efficient way of doing this
+            for (var i = 0; i < Configuration.NumberOfTeams; i++)
+            {
+                ColourGroups.Add(new LeaderGroup(new List<Leader>()));
+            }
+            for (var i = 0; i < _leaderpool.Count; i++)
+            {
+                ColourGroups[i % Configuration.NumberOfTeams].LeaderList.Add(_leaderpool[i]);
+            }
+
+            foreach (var leader in Leaderpool)
+            {
+                foreach (var leaderId in leader.RawBlackList.Select(antiRequestName => Leaderpool.First(x => x.PublicName == antiRequestName).LeaderId))
+                {
+                    leader.BlackList.Add(leaderId);
+                }
+                foreach (var leaderId in leader.RawWhiteList.Select(antiRequestName => Leaderpool.First(x => x.PublicName == antiRequestName).LeaderId))
+                {
+                    leader.WhiteList.Add(leaderId);
+                }
+            }
         }
     }
 }
