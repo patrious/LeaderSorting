@@ -1,4 +1,4 @@
-﻿namespace tests.LeaderSorter
+﻿namespace GeneticAlgorithm.LeaderSorter.DataInjest
 {
     public interface ILeaderDataSource
     {        

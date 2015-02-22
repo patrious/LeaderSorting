@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace tests
+namespace GeneticAlgorithm
 {
     class GeneticAlgorithmLogic
     {

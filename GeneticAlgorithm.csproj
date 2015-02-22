@@ -59,8 +59,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LeaderSorter\LeaderParsing\BigParsing.cs" />
     <Compile Include="LeaderSorter\DataInjest\DataInjectXls.cs" />
-    <Compile Include="LeaderSorter\LeaderParser.cs" />
+    <Compile Include="LeaderSorter\LeaderParsing\BaseLeaderParsing.cs" />
+    <Compile Include="LeaderSorter\LeaderParsing\HugeParsing.cs" />
     <Compile Include="LeaderSorter\LeaderSorterConfiguration.cs" />
     <Compile Include="BaseGeneticAlgorithm.cs" />
     <Compile Include="LeaderSorter\LeaderGroup.cs" />

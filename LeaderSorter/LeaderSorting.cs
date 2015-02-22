@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Extensions;
 
-namespace tests.LeaderSorter
+namespace GeneticAlgorithm.LeaderSorter
 {
     [Serializable]
     public class LeaderSorting : BaseGeneticAlgorithm

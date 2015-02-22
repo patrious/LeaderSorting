@@ -1,7 +1,8 @@
 ﻿using System.Runtime.InteropServices.WindowsRuntime;
-using tests.LeaderSorter;
+using GeneticAlgorithm.LeaderSorter;
+using GeneticAlgorithm.LeaderSorter.DataInjest;
 
-namespace tests
+namespace GeneticAlgorithm
 {
     static public class Program
     {

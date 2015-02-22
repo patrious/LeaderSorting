@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace tests
+namespace GeneticAlgorithm
 {
     [Serializable]
     public abstract class BaseGeneticAlgorithm : IGeneticAlgorithm

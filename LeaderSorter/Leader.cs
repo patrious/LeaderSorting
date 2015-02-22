@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Extensions;
 
-namespace tests.LeaderSorter
+namespace GeneticAlgorithm.LeaderSorter
 {
     [Serializable]
     public enum Traits
@@ -11,6 +11,14 @@ namespace tests.LeaderSorter
         MajorDirectorship,
         CoopInFall,
         Returning,
+    }
+
+    [Serializable]
+    public enum LeaderType
+    {
+        Big,
+        Huge,
+        Undef
     }
 
     [Serializable]
@@ -23,6 +31,7 @@ namespace tests.LeaderSorter
         private List<Traits> _traits;
 
         public Guid LeaderGuid;
+        public LeaderType LeaderType;
         public List<Guid> BlackList;
         public List<Guid> WhiteList;
 
@@ -30,9 +39,10 @@ namespace tests.LeaderSorter
         private List<string> _rawWhiteList;
 
 
-        public Leader(string lastname, string firstname, string perferredname, string program, List<Traits> traits, List<string> rawWhiteList, List<string> rawBlackList)
+        public Leader(string lastname, string firstname, string perferredname, string program, LeaderType leaderType, List<Traits> traits, List<string> rawWhiteList, List<string> rawBlackList)
         {
             LeaderGuid = Guid.NewGuid();
+            this.LeaderType = leaderType;
             _lastname = lastname;
             _firstname = firstname;
             _perferredname = perferredname;
