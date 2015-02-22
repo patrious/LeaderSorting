@@ -8,7 +8,7 @@ using Extensions;
 
 namespace tests.LeaderSorter
 {
-
+    /*
     public class LeaderSorterTestDataGenerator : ILeaderDataSource
     {
         public LeaderSorterConfiguration Configuration { get; set; }
@@ -90,5 +90,5 @@ namespace tests.LeaderSorter
             throw new NotImplementedException();
         }
     }
-
+    */
 }

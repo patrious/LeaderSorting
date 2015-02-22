@@ -2,7 +2,7 @@
 {
     public interface ILeaderDataSource
     {        
-        void FillMeWithData(LeaderSorting iga);
+        void FillMeWithData(ref LeaderSorting iga);
     }
 
 }

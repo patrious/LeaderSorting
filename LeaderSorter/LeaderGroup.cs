@@ -24,8 +24,8 @@ namespace tests.LeaderSorter
             var fitness = 0.0;
             LeaderList.ForEach(leader =>
             {
-                fitness += leader.WhiteList.Count(friend => LeaderList.Contains(friend))* goodFitBonus;
-                fitness += leader.BlackList.Count(enemy => LeaderList.Contains(enemy)) * badFitBonus;
+                //fitness += leader.WhiteList.Count(friend => LeaderList.Contains(friend))* goodFitBonus;
+               // fitness += leader.BlackList.Count(enemy => LeaderList.Contains(enemy)) * badFitBonus;
             }
             );
             return fitness;

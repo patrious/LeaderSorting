@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace tests.LeaderSorter
+namespace tests
 {
     [Serializable]
     public abstract class BaseGeneticAlgorithm : IGeneticAlgorithm
@@ -22,9 +20,25 @@ namespace tests.LeaderSorter
         public abstract int BadFitReduction { get; set; }
         public abstract double Fitness { get; protected internal set; }
         public abstract void MutatePopulation();
+        public abstract string PrettyPrint();
+        
 
-        public abstract IGeneticAlgorithm SpawnChild();
-        public abstract List<IGeneticAlgorithm> SpawnChildren(int numberOfChildren);
+        public IGeneticAlgorithm SpawnChild()
+        {
+            return Extensions.Extensions.DeepClone(this);
+        }
+
+        public List<IGeneticAlgorithm> SpawnChildren( int numberOfChildren)
+        {
+            var children = new List<IGeneticAlgorithm>();
+            for (var i = 0; i < numberOfChildren; i++)
+            {
+                var child = Extensions.Extensions.DeepClone(this);
+                child.MutatePopulation();
+                children.Add(child);
+            }
+            return children.OrderBy(x => -x.Fitness).ToList();
+        }
 
     }
 
@@ -35,6 +49,7 @@ namespace tests.LeaderSorter
         int BadFitReduction { get; set; }
         double Fitness { get; }
         void MutatePopulation();
+        string PrettyPrint();
 
         IGeneticAlgorithm SpawnChild();
         List<IGeneticAlgorithm> SpawnChildren(int numberOfChildren);

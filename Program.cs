@@ -7,7 +7,8 @@ namespace tests
         static void Main()
         {
             var xmlReader = new DataInjectXls(@"D:\User Files\patrick\Code\LeaderSorting\Artifacts\LeaderList.xlsx");
-            xmlReader.FillMeWithData(new LeaderSorting(new LeaderSorterConfiguration()));
+            var iga = new LeaderSorting(new LeaderSorterConfiguration());
+            xmlReader.FillMeWithData(ref iga);
         }
 
     }

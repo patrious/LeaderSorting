@@ -13,7 +13,6 @@ namespace tests.LeaderSorter
     class DataInjectXls : ILeaderDataSource
     {
         public string FilePath { get; private set; }
-        private LeaderSorting leaderSorting;
 
         public DataInjectXls(string filename)
         {
@@ -22,9 +21,8 @@ namespace tests.LeaderSorter
             FilePath = filename;
         }
 
-        public void FillMeWithData(LeaderSorting iga)
+        public void FillMeWithData(ref LeaderSorting iga)
         {
-            leaderSorting = iga;
             using (var excelReader = OpenFile())
             {
                 var data = excelReader.AsDataSet();
@@ -33,24 +31,15 @@ namespace tests.LeaderSorter
                     //Parse out Column Names
                     var leaderParser = new LeaderParser();
                     leaderParser.InjectColumnNames(table.Rows[0]);
-                    var leaderInformationKey = ParseKeys();
                     for (var i = 1; i < table.Rows.Count; i++)
                     {
-                        leaderParser.ParseLeader(table.Rows[i].ItemArray);
+                        var leader = leaderParser.ParseLeader(table.Rows[i].ItemArray);
+                        if (leader != null)
+                            iga.Leaderpool.Add(leader);
                     }
                 }
 
             }
-
-
-        }
-
-        
-
-        private static Dictionary<string, int> ParseKeys(DataRow dataRow)
-        {
-          
-
         }
 
         private IExcelDataReader OpenFile()

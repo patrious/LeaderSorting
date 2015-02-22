@@ -59,16 +59,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LeaderSorter\DataInjectXls.cs" />
+    <Compile Include="LeaderSorter\DataInjest\DataInjectXls.cs" />
     <Compile Include="LeaderSorter\LeaderParser.cs" />
     <Compile Include="LeaderSorter\LeaderSorterConfiguration.cs" />
-    <Compile Include="LeaderSorter\BaseGeneticAlgorithm.cs" />
+    <Compile Include="BaseGeneticAlgorithm.cs" />
     <Compile Include="LeaderSorter\LeaderGroup.cs" />
-    <Compile Include="LeaderSorter\GeneticAlgorithmLogic.cs" />
-    <Compile Include="LeaderSorter\ILeaderDataSource.cs" />
+    <Compile Include="GeneticAlgorithmLogic.cs" />
+    <Compile Include="LeaderSorter\DataInjest\ILeaderDataSource.cs" />
     <Compile Include="LeaderSorter\Leader.cs" />
     <Compile Include="LeaderSorter\LeaderSorting.cs" />
-    <Compile Include="LeaderSorter\TestDataGeneration.cs" />
+    <Compile Include="LeaderSorter\DataInjest\TestDataGeneration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

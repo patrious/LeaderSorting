@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace tests.LeaderSorter
+namespace tests
 {
     class GeneticAlgorithmLogic
     {
@@ -51,7 +46,7 @@ namespace tests.LeaderSorter
         private void OnNewBestFistnessFoundEvent(object sender, EventArgs eventArgs)
         {
             BestPopulation = CurrentPopulation;
-            Console.WriteLine(((LeaderSorting)BestPopulation).PrettyPrint());
+            Console.WriteLine(BestPopulation.PrettyPrint());
         }
 
         public void RunAlgorithm()
@@ -87,11 +82,10 @@ namespace tests.LeaderSorter
                     }
                 }
                 //We have found our goal, we can break
-                if (CurrentFitness >= Configuration.Goal)
-                {
-                    OnFoundSolutionEvent(); 
-                    break;
-                }
+                if (!(CurrentFitness >= Configuration.Goal)) continue;
+                
+                OnFoundSolutionEvent(); 
+                break;
             }
             
         }
@@ -100,6 +94,8 @@ namespace tests.LeaderSorter
         {
             if (testNumber++ % 100 == 0) Console.WriteLine("{0:00000} - Current Fitness: {1} \tBest Fitness {2}", testNumber, CurrentFitness, BestPopulation.Fitness);
         }
+
+        
     }
 
     public class GeneticAlgorithmConfig

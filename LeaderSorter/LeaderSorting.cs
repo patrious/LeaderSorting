@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Extensions;
 
@@ -53,23 +49,6 @@ namespace tests.LeaderSorter
             Configuration = configuration;
         }
 
-        public override IGeneticAlgorithm SpawnChild()
-        {
-            return RandomExtension.DeepClone(this);
-        }
-
-        public override List<IGeneticAlgorithm> SpawnChildren(int numberOfChildren)
-        {
-            var children = new List<IGeneticAlgorithm>();
-            for (var i = 0; i < numberOfChildren; i++)
-            {
-                var child = RandomExtension.DeepClone(this);
-                child.MutatePopulation();
-                children.Add(child);
-            }
-            return children.OrderBy(x => -x.Fitness).ToList();
-        }
-
         public override void MutatePopulation()
         {
             _rand = new Random((int)DateTime.Now.Ticks);
@@ -81,6 +60,7 @@ namespace tests.LeaderSorter
                 if (randIndex[0] == randIndex[1]) continue;
                 var list1 = _colourGroups[randIndex[0]].LeaderList;
                 var list2 = _colourGroups[randIndex[1]].LeaderList;
+
                 //2 random numbers corresponding to the number of leaders per list
                 var list1Index = _rand.Next(list1.Count);
                 var list2Index = _rand.Next(list2.Count);
@@ -102,7 +82,7 @@ namespace tests.LeaderSorter
 
         }
 
-        public string PrettyPrint()
+        public override string PrettyPrint()
         {
             var sb = new StringBuilder();
             _colourGroups.ForEach(x => sb.Append(x.ToString()));
@@ -110,34 +90,4 @@ namespace tests.LeaderSorter
         }
 
     }
-
-    public static class RandomExtension
-    {
-        //Someday it will be unique
-        public static List<int> PickUniqueRandomNumbers(this Random rand, int numberOfItems, int max = 1, int min = 0)
-        {
-            Debug.Assert(numberOfItems < max - min);
-
-            var returnNumbers = new List<int>();
-            while (returnNumbers.Count < numberOfItems)
-            {
-                returnNumbers.Add(rand.Next(min, max));
-            }
-            return returnNumbers;
-        }
-
-        public static T DeepClone<T>(T obj)
-        {
-            using (var ms = new MemoryStream())
-            {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(ms, obj);
-                ms.Position = 0;
-
-                return (T)formatter.Deserialize(ms);
-            }
-        }
-    }
-
-
 }
