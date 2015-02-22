@@ -103,13 +103,16 @@ namespace GeneticAlgorithm.LeaderSorter
 
             foreach (var leader in Leaderpool)
             {
-                var blacklist = leader.RawBlackList.Select(antiRequestName => Leaderpool.First(x => x.PublicName == antiRequestName).LeaderId);
-                var whitelist =
+                leader.BlackList.AddRange(
+                    leader.RawBlackList.Select(
+                        antiRequestName => Leaderpool.Find(x => x.PublicName.Trim() == antiRequestName.Trim()))
+                        .Where(tempLeader => tempLeader != null)
+                        .Select(x => x.LeaderId));
+                leader.WhiteList.AddRange(
                     leader.RawWhiteList.Select(
-                        antiRequestName => Leaderpool.First(x => x.PublicName == antiRequestName).LeaderId);
-                leader.BlackList.AddRange(blacklist);
-                leader.WhiteList.AddRange(whitelist);
-
+                        requestName => Leaderpool.Find(x => x.PublicName.Trim() == requestName.Trim()))
+                        .Where(tempLeader => tempLeader != null)
+                        .Select(x => x.LeaderId));
             }
         }
     }

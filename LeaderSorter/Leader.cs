@@ -32,8 +32,8 @@ namespace GeneticAlgorithm.LeaderSorter
 
         public Guid LeaderId;
         public LeaderType LeaderType;
-        public List<Guid> BlackList;
-        public List<Guid> WhiteList;
+        public List<Guid> BlackList = new List<Guid>();
+        public List<Guid> WhiteList = new List<Guid>();
 
         public string PublicName
         {
