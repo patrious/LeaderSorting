@@ -50,7 +50,7 @@ namespace tests.LeaderSorter
                 traits.Add(Traits.Returning);
 
             if (checkTrait("HEM Interview?"))
-                traits.Add(Traits.Returning);
+                traits.Add(Traits.Hem);
 
             //Requsits and Anti... sigh
             var rawRequests = parseRequests("Requests");

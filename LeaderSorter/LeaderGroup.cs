@@ -17,6 +17,28 @@ namespace GeneticAlgorithm.LeaderSorter
             LeaderList = leaderList;
         }
 
+        //TODO: Do this is a generic count way
+
+        public int DirectorshipsHeld
+        {
+            get { return LeaderList.Count(leader => leader.Traits.Contains(Traits.MajorDirectorship)); }
+        }
+
+        public int CoopsInFall
+        {
+            get { return LeaderList.Count(leader => leader.Traits.Contains(Traits.CoopInFall)); }
+        }
+        
+        public int Returnings
+        {
+            get { return LeaderList.Count(leader => leader.Traits.Contains(Traits.Returning)); }
+        }
+
+        public int Hems
+        {
+            get { return LeaderList.Count(leader => leader.Traits.Contains(Traits.Hem)); }
+        }
+
         public double FitnessFunction(double goodFitBonus, double badFitBonus)
         {
             var fitness = 0.0;
@@ -26,7 +48,7 @@ namespace GeneticAlgorithm.LeaderSorter
             {
                 //The Hard Part
                 fitness += leader.WhiteList.Count(friend => LeaderList.Any(x => x.LeaderId == friend)) * goodFitBonus;
-                fitness -= leader.BlackList.Count(enemy => LeaderList.Any(x => x.LeaderId == enemy)) * badFitBonus;
+                fitness -= leader.BlackList.Count(enemy => LeaderList.Any(x => x.LeaderId == enemy)) * badFitBonus * 10;
             }
             );
             return fitness;

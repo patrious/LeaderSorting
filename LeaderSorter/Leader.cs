@@ -11,6 +11,7 @@ namespace GeneticAlgorithm.LeaderSorter
         MajorDirectorship,
         CoopInFall,
         Returning,
+        Hem
     }
 
     [Serializable]
@@ -27,10 +28,11 @@ namespace GeneticAlgorithm.LeaderSorter
         private readonly string _firstname;
         private readonly string _lastname;
         private readonly string _perferredname;
-        private string _program;
-        private List<Traits> _traits;
+        
+        public List<Traits> Traits;
 
         public Guid LeaderId;
+        public string Program;
         public LeaderType LeaderType;
         public List<Guid> BlackList = new List<Guid>();
         public List<Guid> WhiteList = new List<Guid>();
@@ -56,8 +58,8 @@ namespace GeneticAlgorithm.LeaderSorter
             _lastname = lastname;
             _firstname = firstname;
             _perferredname = perferredname;
-            _program = program;
-            _traits = traits;
+            Program = program;
+            Traits = traits;
             RawBlackList = rawBlackList;
             RawWhiteList = rawWhiteList;
         }

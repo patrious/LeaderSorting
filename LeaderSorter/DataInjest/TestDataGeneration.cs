@@ -13,10 +13,10 @@
             foreach (LeaderSorterConfiguration.Colour source in Enum.GetValues(typeof(LeaderSorterConfiguration.Colour)))
             {
                 var leaderList = GenerateTestLeaders();
-                leaderSorting.ColourGroups.Add(new LeaderGroup(leaderList, source));
+                leaderSorting.LeaderGroups.Add(new LeaderGroup(leaderList, source));
             }
             //Store all leaders in a pool.
-            leaderSorting.ColourGroups.ForEach(x => leaderSorting.Leaderpool.AddRange(x.LeaderList));
+            leaderSorting.LeaderGroups.ForEach(x => leaderSorting.Leaderpool.AddRange(x.LeaderList));
 
             //Generate Whitelists/Blacklists
             GenerateWhiteBlackLists(leaderSorting.Leaderpool);

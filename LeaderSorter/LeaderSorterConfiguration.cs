@@ -10,10 +10,15 @@ namespace GeneticAlgorithm.LeaderSorter
     public class LeaderSorterConfiguration
     {
         public int NumberOfTeams { get; set; }
+        public int ProtectedGroupThreshold { get; set; }
+        public int ProtectedGroupSpreadFactor { get; set; }
 
-        public LeaderSorterConfiguration(int numberOfTeams = 16)
+        public LeaderSorterConfiguration(int numberOfTeams = 6)
         {
+            //TODO: Do this correctly.
             NumberOfTeams = numberOfTeams;
+            ProtectedGroupSpreadFactor = 4;
+            ProtectedGroupThreshold = 4;
         }
     }
 }
