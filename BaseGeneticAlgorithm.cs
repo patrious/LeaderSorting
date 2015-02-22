@@ -30,6 +30,7 @@ namespace GeneticAlgorithm
 
         public List<IGeneticAlgorithm> SpawnChildren( int numberOfChildren)
         {
+            //TODO: Parallel this
             var children = new List<IGeneticAlgorithm>();
             for (var i = 0; i < numberOfChildren; i++)
             {

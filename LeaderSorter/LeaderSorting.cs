@@ -36,6 +36,7 @@ namespace GeneticAlgorithm.LeaderSorter
 
         public override double Fitness
         {
+            //TODO: Parallel this
             get
             {
                 var fitnessColourGroups =

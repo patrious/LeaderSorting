@@ -14,6 +14,7 @@ namespace tests.LeaderSorter
 
         public Leader ParseLeader(object[] itemArray, string leaderTypeString)
         {
+            //TODO: Parallel this
             Func<string, string> parseString = key =>
             {
                 try

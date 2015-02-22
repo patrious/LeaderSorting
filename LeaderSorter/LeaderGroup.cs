@@ -21,36 +21,43 @@ namespace GeneticAlgorithm.LeaderSorter
 
         public int DirectorshipsHeld
         {
+            //TODO: Parallel this
             get { return LeaderList.Count(leader => leader.Traits.Contains(Traits.MajorDirectorship)); }
         }
 
         public int CoopsInFall
         {
+            //TODO: Parallel this
             get { return LeaderList.Count(leader => leader.Traits.Contains(Traits.CoopInFall)); }
         }
         
         public int Returnings
         {
+            //TODO: Parallel this
             get { return LeaderList.Count(leader => leader.Traits.Contains(Traits.Returning)); }
         }
 
         public int Hems
         {
+            //TODO: Parallel this
             get { return LeaderList.Count(leader => leader.Traits.Contains(Traits.Hem)); }
         }
 
         public int Bigs
         {
+            //TODO: Parallel this
             get { return LeaderList.Count(leader => leader.LeaderType.Equals(LeaderType.Big)); }
         }
 
         public int Huges
         {
+            //TODO: Parallel this
             get { return LeaderList.Count(leader => leader.LeaderType.Equals(LeaderType.Huge)); }
         }
 
         public double FitnessFunction(double goodFitBonus, double badFitBonus)
         {
+            //TODO: Parallel this
             var fitness = 0.0;
             //Leader stuff
             //In the group stuff
