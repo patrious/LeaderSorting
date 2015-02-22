@@ -8,22 +8,11 @@ namespace tests.LeaderSorter
 {
     public class LeaderSorterConfiguration
     {
-
-        [Serializable]
-        public enum Colour
-        {
-            Red,
-            Green,
-            Blue
-        }
-
         public int NumberOfTeams { get; set; }
-        public int NumberOfLeadersPerTeam { get; set; }
 
-        public LeaderSorterConfiguration(int numberOfTeams = 3, int numberOfLeadersPerTeam = 5)
+        public LeaderSorterConfiguration(int numberOfTeams = 16)
         {
             NumberOfTeams = numberOfTeams;
-            NumberOfLeadersPerTeam = numberOfLeadersPerTeam;
         }
     }
 }

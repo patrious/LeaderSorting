@@ -6,26 +6,27 @@ using System.Threading.Tasks;
 
 namespace tests.LeaderSorter
 {
-    
+
     [Serializable]
     public class LeaderGroup
     {
-        public LeaderSorterConfiguration.Colour GroupColour;
         public List<Leader> LeaderList;
 
-        public LeaderGroup(List<Leader> leaderList, LeaderSorterConfiguration.Colour groupColour)
+        public LeaderGroup(List<Leader> leaderList)
         {
             LeaderList = leaderList;
-            GroupColour = groupColour;
         }
 
         public double FitnessFunction(double goodFitBonus, double badFitBonus)
         {
             var fitness = 0.0;
+            //Leader stuff
+            //In the group stuff
             LeaderList.ForEach(leader =>
             {
-                //fitness += leader.WhiteList.Count(friend => LeaderList.Contains(friend))* goodFitBonus;
-               // fitness += leader.BlackList.Count(enemy => LeaderList.Contains(enemy)) * badFitBonus;
+                //The Hard Part
+                fitness += leader.WhiteList.Count(friend => LeaderList.Count(x => x.LeaderGuid == friend)) * goodFitBonus;
+                fitness -= leader.BlackList.Count(enemy => LeaderList.Contains(enemy)) * badFitBonus;
             }
             );
             return fitness;
@@ -34,8 +35,7 @@ namespace tests.LeaderSorter
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine(GroupColour.ToString());
-            LeaderList.ForEach(x=>sb.AppendLine(x.PrettyPrint()));
+            LeaderList.ForEach(x => sb.AppendLine(x.PrettyPrint()));
             sb.AppendLine();
             return sb.ToString();
         }
