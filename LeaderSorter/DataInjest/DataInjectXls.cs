@@ -2,6 +2,7 @@
 using System.Data;
 using System.IO;
 using Excel;
+using tests.LeaderSorter;
 
 namespace GeneticAlgorithm.LeaderSorter.DataInjest
 {
@@ -28,7 +29,7 @@ namespace GeneticAlgorithm.LeaderSorter.DataInjest
                     leaderParser.InjectColumnNames(table.Rows[0]);
                     for (var i = 1; i < table.Rows.Count; i++)
                     {
-                        var leader = leaderParser.ParseLeader(table.Rows[i].ItemArray);
+                        var leader = leaderParser.ParseLeader(table.Rows[i].ItemArray, table.TableName);
                         if (leader != null)
                             iga.Leaderpool.Add(leader);
                     }

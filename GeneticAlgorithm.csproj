@@ -59,10 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LeaderSorter\LeaderParsing\BigParsing.cs" />
     <Compile Include="LeaderSorter\DataInjest\DataInjectXls.cs" />
-    <Compile Include="LeaderSorter\LeaderParsing\BaseLeaderParsing.cs" />
-    <Compile Include="LeaderSorter\LeaderParsing\HugeParsing.cs" />
+    <Compile Include="LeaderSorter\HugeParsing.cs" />
     <Compile Include="LeaderSorter\LeaderSorterConfiguration.cs" />
     <Compile Include="BaseGeneticAlgorithm.cs" />
     <Compile Include="LeaderSorter\LeaderGroup.cs" />
@@ -82,6 +80,9 @@
       <Project>{416db8ab-2c5b-4c06-8303-017adbb5b45b}</Project>
       <Name>Extensions</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="LeaderSorter\LeaderParsing\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
