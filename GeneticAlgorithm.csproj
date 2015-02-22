@@ -7,7 +7,7 @@
     <ProjectGuid>{653C444B-5AD6-429F-B07D-BA13311A4798}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>tests</RootNamespace>
+    <RootNamespace>GeneticAlgorithm</RootNamespace>
     <AssemblyName>tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -60,7 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LeaderSorter\DataInjest\DataInjectXls.cs" />
-    <Compile Include="LeaderSorter\HugeParsing.cs" />
+    <Compile Include="LeaderSorter\LeaderParsing.cs" />
     <Compile Include="LeaderSorter\LeaderSorterConfiguration.cs" />
     <Compile Include="BaseGeneticAlgorithm.cs" />
     <Compile Include="LeaderSorter\LeaderGroup.cs" />
@@ -81,9 +81,7 @@
       <Name>Extensions</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="LeaderSorter\LeaderParsing\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

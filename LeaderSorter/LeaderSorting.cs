@@ -89,5 +89,9 @@ namespace GeneticAlgorithm.LeaderSorter
             return sb.ToString();
         }
 
+        public void PrepWorkspace()
+        {
+            
+        }
     }
 }

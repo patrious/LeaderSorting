@@ -17,10 +17,6 @@ namespace GeneticAlgorithm
             var logic = new GeneticAlgorithmLogic(iga, algorthmConfig);
 
             logic.RunAlgorithm();
-
-            
-
-
         }
 
     }

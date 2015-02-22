@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.IO;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Excel;
 using tests.LeaderSorter;
 
@@ -36,6 +37,8 @@ namespace GeneticAlgorithm.LeaderSorter.DataInjest
                 }
 
             }
+
+            iga.PrepWorkspace();
         }
 
         private IExcelDataReader OpenFile()
