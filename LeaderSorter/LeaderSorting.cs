@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+
+using System.Threading.Tasks;
 using Extensions;
 
 namespace GeneticAlgorithm.LeaderSorter
@@ -36,13 +39,12 @@ namespace GeneticAlgorithm.LeaderSorter
 
         public override double Fitness
         {
-            //TODO: Parallel this
             get
             {
-                var fitnessColourGroups =
-                    LeaderGroups.Sum(leaderGroup => leaderGroup.FitnessFunction(GoodFitBonus, BadFitReduction));
+                var fitnessColourGroups = LeaderGroups.AsParallel().Sum(leaderGroup => leaderGroup.FitnessFunction(GoodFitBonus, BadFitReduction));
+
                 var protectedProgramFitness =
-                    (Math.Max(0, LeaderGroups.Count(x => x.LeaderList.Any(y => ProtectedPrograms.ContainsKey(y.Program))) - Configuration.ProtectedGroupSpreadFactor)) * BadFitReduction * 10;
+                    (Math.Max(0, LeaderGroups.AsParallel().Count(x => x.LeaderList.Any(y => ProtectedPrograms.ContainsKey(y.Program))) - Configuration.ProtectedGroupSpreadFactor)) * BadFitReduction * 10;
 
                 var traitFitness = CalculateTraitFitness();
 
@@ -50,22 +52,21 @@ namespace GeneticAlgorithm.LeaderSorter
 
                 return fitnessColourGroups + protectedProgramFitness + traitFitness + leaderTypeFitness;
             }
-            protected internal set { }
         }
 
         private double CalculateLeaderTypeFitness()
         {
-            var dh = LeaderGroups.Max(x => x.Huges) - LeaderGroups.Min(x => x.Huges);
-            var db = LeaderGroups.Max(x => x.Bigs) - LeaderGroups.Min(x => x.Bigs);
+            var dh = LeaderGroups.AsParallel().Max(x => x.Huges) - LeaderGroups.Min(x => x.Huges);
+            var db = LeaderGroups.AsParallel().Max(x => x.Bigs) - LeaderGroups.Min(x => x.Bigs);
             return (dh + db) * BadFitReduction;
         }
 
         private double CalculateTraitFitness()
         {
-            var dd = LeaderGroups.Max(x => x.DirectorshipsHeld) - LeaderGroups.Min(x => x.DirectorshipsHeld);
-            var dc = LeaderGroups.Max(x => x.CoopsInFall) - LeaderGroups.Min(x => x.CoopsInFall);
-            var dh = LeaderGroups.Max(x => x.Hems) - LeaderGroups.Min(x => x.Hems);
-            var dr = LeaderGroups.Max(x => x.Returnings) - LeaderGroups.Min(x => x.Returnings);
+            var dd = LeaderGroups.AsParallel().Max(x => x.DirectorshipsHeld) - LeaderGroups.Min(x => x.DirectorshipsHeld);
+            var dc = LeaderGroups.AsParallel().Max(x => x.CoopsInFall) - LeaderGroups.Min(x => x.CoopsInFall);
+            var dh = LeaderGroups.AsParallel().Max(x => x.Hems) - LeaderGroups.Min(x => x.Hems);
+            var dr = LeaderGroups.AsParallel().Max(x => x.Returnings) - LeaderGroups.Min(x => x.Returnings);
             return (dd + dc + dh + dr) * BadFitReduction;
         }
 

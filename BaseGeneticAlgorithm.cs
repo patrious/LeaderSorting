@@ -10,7 +10,6 @@ namespace GeneticAlgorithm
     {
         protected BaseGeneticAlgorithm()
         {
-            Fitness = 0;
             PopulationSize = 0;
             GoodFitBonus = 3;
             BadFitReduction = -5;
@@ -19,16 +18,12 @@ namespace GeneticAlgorithm
         public uint PopulationSize { get; set; }
         public abstract int GoodFitBonus { get; set; }
         public abstract int BadFitReduction { get; set; }
-        public abstract double Fitness { get; protected internal set; }
+        public abstract double Fitness { get; }
         public abstract void MutatePopulation();
         public abstract string PrettyPrint();
-        
-        public async Task<List<IGeneticAlgorithm>> SpawnChildren( int numberOfChildren)
-        {
-            //  Task<byte[]> getContentsTask = client.GetByteArrayAsync(url);
-            //  byte[] urlContents = await getContentsTask;
-            //TODO: Parallel this
 
+        public async Task<List<IGeneticAlgorithm>> SpawnChildren(int numberOfChildren)
+        {
             var children = new List<IGeneticAlgorithm>();
             for (var i = 0; i < numberOfChildren; i++)
             {

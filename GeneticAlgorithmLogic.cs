@@ -59,7 +59,7 @@ namespace GeneticAlgorithm
             while (true)
             {
                 //Generate sorted list of children
-                var spawn = CurrentPopulation.SpawnChildren(Configuration.NumChildrenToSpawn);
+                var spawn = CurrentPopulation.SpawnChildren(Configuration.NumChildrenToSpawn).Result;
                 //Display Progress
                 DisplayProgress(testNumber++);
                 if (testNumber > Configuration.NumberOfIterations) break;

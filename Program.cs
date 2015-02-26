@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices.WindowsRuntime;
+﻿using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using GeneticAlgorithm.LeaderSorter;
 using GeneticAlgorithm.LeaderSorter.DataInjest;
 
@@ -8,6 +9,10 @@ namespace GeneticAlgorithm
     {
         static void Main()
         {
+            try
+            {
+
+            
             var xmlReader = new DataInjectXls(@"D:\User Files\patrick\Code\LeaderSorting\Artifacts\LeaderList.xlsx");
             var iga = new LeaderSorting(new LeaderSorterConfiguration());
             xmlReader.FillMeWithData(ref iga);
@@ -17,6 +22,11 @@ namespace GeneticAlgorithm
             var logic = new GeneticAlgorithmLogic(iga, algorthmConfig);
 
             logic.RunAlgorithm();
+            }
+            catch (Exception)
+            {
+                Console.ReadLine();
+            }
         }
 
     }

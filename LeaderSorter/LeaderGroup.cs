@@ -17,57 +17,56 @@ namespace GeneticAlgorithm.LeaderSorter
             LeaderList = leaderList;
         }
 
-        //TODO: Do this is a generic count way
+        //TODO: Do this in a generic count way
 
         public int DirectorshipsHeld
         {
-            //TODO: Parallel this
-            get { return LeaderList.Count(leader => leader.Traits.Contains(Traits.MajorDirectorship)); }
+
+            get { return LeaderList.AsParallel().Count(leader => leader.Traits.Contains(Traits.MajorDirectorship)); }
         }
 
         public int CoopsInFall
         {
-            //TODO: Parallel this
-            get { return LeaderList.Count(leader => leader.Traits.Contains(Traits.CoopInFall)); }
+
+            get { return LeaderList.AsParallel().Count(leader => leader.Traits.Contains(Traits.CoopInFall)); }
         }
-        
+
         public int Returnings
         {
-            //TODO: Parallel this
-            get { return LeaderList.Count(leader => leader.Traits.Contains(Traits.Returning)); }
+
+            get { return LeaderList.AsParallel().Count(leader => leader.Traits.Contains(Traits.Returning)); }
         }
 
         public int Hems
         {
-            //TODO: Parallel this
-            get { return LeaderList.Count(leader => leader.Traits.Contains(Traits.Hem)); }
+
+            get { return LeaderList.AsParallel().Count(leader => leader.Traits.Contains(Traits.Hem)); }
         }
 
         public int Bigs
         {
-            //TODO: Parallel this
-            get { return LeaderList.Count(leader => leader.LeaderType.Equals(LeaderType.Big)); }
+
+            get { return LeaderList.AsParallel().Count(leader => leader.LeaderType.Equals(LeaderType.Big)); }
         }
 
         public int Huges
         {
-            //TODO: Parallel this
-            get { return LeaderList.Count(leader => leader.LeaderType.Equals(LeaderType.Huge)); }
+
+            get { return LeaderList.AsParallel().Count(leader => leader.LeaderType.Equals(LeaderType.Huge)); }
         }
 
         public double FitnessFunction(double goodFitBonus, double badFitBonus)
         {
-            //TODO: Parallel this
-            var fitness = 0.0;
             //Leader stuff
             //In the group stuff
-            LeaderList.ForEach(leader =>
-            {
-                //The Hard Part
-                fitness += leader.WhiteList.Count(friend => LeaderList.Any(x => x.LeaderId == friend)) * goodFitBonus;
-                fitness -= leader.BlackList.Count(enemy => LeaderList.Any(x => x.LeaderId == enemy)) * badFitBonus * 10;
-            }
-            );
+            var fitness = LeaderList.AsParallel().Sum(leader =>
+                 {
+                     //The Hard Part
+                     var fit = 0.0;
+                     fit += leader.WhiteList.Count(friend => LeaderList.Any(x => x.LeaderId == friend)) * goodFitBonus;
+                     fit -= leader.BlackList.Count(enemy => LeaderList.Any(x => x.LeaderId == enemy)) * badFitBonus * 10;
+                     return fit;
+                 });
             return fitness;
         }
 

@@ -9,7 +9,22 @@ namespace GeneticAlgorithm.LeaderSorter.DataInjest
 {
     class DataInjectXls : ILeaderDataSource
     {
-        public string FilePath { get; private set; }
+
+        private string filePath;
+        public string FilePath
+        {
+            get { return filePath; }
+            private set
+            {
+                if (File.Exists(value))
+                    filePath = value;
+                else
+                {
+                    filePath = null;
+                    Console.WriteLine("File {0} does not exist.", value);
+                }
+            }
+        }
 
         public DataInjectXls(string filename)
         {
@@ -20,6 +35,7 @@ namespace GeneticAlgorithm.LeaderSorter.DataInjest
 
         public void FillMeWithData(ref LeaderSorting iga)
         {
+
             using (var excelReader = OpenFile())
             {
                 var data = excelReader.AsDataSet();
@@ -38,11 +54,15 @@ namespace GeneticAlgorithm.LeaderSorter.DataInjest
 
             }
             iga.PrepWorkspace();
+
         }
 
         private IExcelDataReader OpenFile()
         {
-            FileStream stream = File.Open(FilePath, FileMode.Open, FileAccess.Read);
+            if (FilePath == null)
+                throw new NullReferenceException("FilePath is invalid");
+
+            var stream = File.Open(FilePath, FileMode.Open, FileAccess.Read);
             if (Path.GetExtension(FilePath) == ".xlsx")
                 return ExcelReaderFactory.CreateOpenXmlReader(stream);
             if (Path.GetExtension(FilePath) == ".xls")
