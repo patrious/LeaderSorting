@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GeneticAlgorithm
 {
@@ -22,23 +23,27 @@ namespace GeneticAlgorithm
         public abstract void MutatePopulation();
         public abstract string PrettyPrint();
         
-
-        public IGeneticAlgorithm SpawnChild()
+        public async Task<List<IGeneticAlgorithm>> SpawnChildren( int numberOfChildren)
         {
-            return Extensions.Extensions.DeepClone(this);
-        }
-
-        public List<IGeneticAlgorithm> SpawnChildren( int numberOfChildren)
-        {
+            //  Task<byte[]> getContentsTask = client.GetByteArrayAsync(url);
+            //  byte[] urlContents = await getContentsTask;
             //TODO: Parallel this
+
             var children = new List<IGeneticAlgorithm>();
             for (var i = 0; i < numberOfChildren; i++)
             {
-                var child = Extensions.Extensions.DeepClone(this);
-                child.MutatePopulation();
+                var child = await SpawnChild();
                 children.Add(child);
             }
+
             return children.OrderBy(x => -x.Fitness).ToList();
+        }
+
+        private async Task<IGeneticAlgorithm> SpawnChild()
+        {
+            var child = Extensions.Extensions.DeepClone(this);
+            child.MutatePopulation();
+            return child;
         }
 
     }
@@ -52,8 +57,7 @@ namespace GeneticAlgorithm
         void MutatePopulation();
         string PrettyPrint();
 
-        IGeneticAlgorithm SpawnChild();
-        List<IGeneticAlgorithm> SpawnChildren(int numberOfChildren);
+        Task<List<IGeneticAlgorithm>> SpawnChildren(int numberOfChildren);
 
 
     }
