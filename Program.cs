@@ -34,7 +34,7 @@ namespace GeneticAlgorithm
                     }
                     else
                     {
-                        logic.printCurrentBestPopulation();
+                        logic.PrintCurrentBestPopulation();
                     }
 
                 }

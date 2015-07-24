@@ -49,10 +49,10 @@ namespace GeneticAlgorithm
         private void OnNewBestFistnessFoundEvent(object sender, EventArgs eventArgs)
         {
             BestPopulation = CurrentPopulation;
-            printCurrentBestPopulation();
+            PrintCurrentBestPopulation();
         }
 
-        public void printCurrentBestPopulation()
+        public void PrintCurrentBestPopulation()
         {
             lock (lockobject)
             {

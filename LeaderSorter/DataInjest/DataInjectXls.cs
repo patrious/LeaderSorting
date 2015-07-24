@@ -63,10 +63,13 @@ namespace GeneticAlgorithm.LeaderSorter.DataInjest
                 throw new NullReferenceException("FilePath is invalid");
 
             var stream = File.Open(FilePath, FileMode.Open, FileAccess.Read);
-            if (Path.GetExtension(FilePath) == ".xlsx")
-                return ExcelReaderFactory.CreateOpenXmlReader(stream);
-            if (Path.GetExtension(FilePath) == ".xls")
-                return ExcelReaderFactory.CreateBinaryReader(stream);
+            switch (Path.GetExtension(FilePath))
+            {
+                case ".xlsx":
+                    return ExcelReaderFactory.CreateOpenXmlReader(stream);
+                case ".xls":
+                    return ExcelReaderFactory.CreateBinaryReader(stream);
+            }
             throw new Exception("Invalid File Type");
         }
     }
