@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,25 +17,26 @@ namespace GeneticAlgorithm
         }
 
         public uint PopulationSize { get; set; }
-        public abstract int GoodFitBonus { get; set; }
-        public abstract int BadFitReduction { get; set; }
+        public int GoodFitBonus { get; set; }
+        public int BadFitReduction { get; set; }
         public abstract double Fitness { get; }
         public abstract void MutatePopulation();
         public abstract string PrettyPrint();
 
-        public async Task<List<IGeneticAlgorithm>> SpawnChildren(int numberOfChildren)
+        public List<IGeneticAlgorithm> SpawnChildren(int numberOfChildren)
         {
-            var children = new List<IGeneticAlgorithm>();
-            for (var i = 0; i < numberOfChildren; i++)
+            var children = new List<IGeneticAlgorithm>(numberOfChildren);
+            
+            while (children.Count < numberOfChildren)
             {
-                var child = await SpawnChild();
-                children.Add(child);
+                children.Add(SpawnChild());
             }
+
 
             return children.OrderBy(x => -x.Fitness).ToList();
         }
 
-        private async Task<IGeneticAlgorithm> SpawnChild()
+        private IGeneticAlgorithm SpawnChild()
         {
             var child = Extensions.Extensions.DeepClone(this);
             child.MutatePopulation();
@@ -52,7 +54,7 @@ namespace GeneticAlgorithm
         void MutatePopulation();
         string PrettyPrint();
 
-        Task<List<IGeneticAlgorithm>> SpawnChildren(int numberOfChildren);
+        List<IGeneticAlgorithm> SpawnChildren(int numberOfChildren);
 
 
     }

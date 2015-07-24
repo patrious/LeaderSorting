@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace GeneticAlgorithm
 {
@@ -12,6 +13,8 @@ namespace GeneticAlgorithm
         public double CurrentFitness { get { return CurrentPopulation.Fitness; } }
         public int NoImprovements { get; set; }
         public GeneticAlgorithmConfig Configuration { get; set; }
+        public bool Running = true;
+        private object lockobject = new object();
 
         public event EventHandler NewBestFistnessFoundEvent;
         public event EventHandler FoundSolutionEvent;
@@ -46,7 +49,15 @@ namespace GeneticAlgorithm
         private void OnNewBestFistnessFoundEvent(object sender, EventArgs eventArgs)
         {
             BestPopulation = CurrentPopulation;
-            Console.WriteLine(BestPopulation.PrettyPrint());
+            printCurrentBestPopulation();
+        }
+
+        public void printCurrentBestPopulation()
+        {
+            lock (lockobject)
+            {
+                Console.WriteLine(BestPopulation.PrettyPrint());    
+            }
         }
 
         public void RunAlgorithm()
@@ -56,10 +67,10 @@ namespace GeneticAlgorithm
             //Setup
             var testNumber = 1;
             NoImprovements = 0;
-            while (true)
+            while (Running)
             {
                 //Generate sorted list of children
-                var spawn = CurrentPopulation.SpawnChildren(Configuration.NumChildrenToSpawn).Result;
+                var spawn = CurrentPopulation.SpawnChildren(Configuration.NumChildrenToSpawn);
                 //Display Progress
                 DisplayProgress(testNumber++);
                 if (testNumber > Configuration.NumberOfIterations) break;
@@ -105,7 +116,7 @@ namespace GeneticAlgorithm
         public int NoImproveThreshold;
         public int NumChildrenToSpawn;
 
-        public GeneticAlgorithmConfig(double goal = 50, int noImprovementThreshold = 5000, int numChildrenToSpawn = 5, int numberOfIterations = 100000)
+        public GeneticAlgorithmConfig(double goal = 200, int noImprovementThreshold = 5000, int numChildrenToSpawn = 5, int numberOfIterations = 100000)
         {
             Goal = goal;
             NoImproveThreshold = noImprovementThreshold;

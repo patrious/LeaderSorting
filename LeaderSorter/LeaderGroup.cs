@@ -73,6 +73,8 @@ namespace GeneticAlgorithm.LeaderSorter
         public override string ToString()
         {
             var sb = new StringBuilder();
+            sb.AppendLine(string.Format("Huges:{0} Bigs:{1} Hems:{2} Return:{3} Coop:{4} Directorship:{5}", Huges, Bigs,
+                Hems, Returnings, CoopsInFall, DirectorshipsHeld));
             LeaderList.ForEach(x => sb.AppendLine(x.PrettyPrint()));
             sb.AppendLine();
             return sb.ToString();

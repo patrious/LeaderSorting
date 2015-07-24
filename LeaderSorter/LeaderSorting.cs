@@ -13,7 +13,7 @@ namespace GeneticAlgorithm.LeaderSorter
     [Serializable]
     public class LeaderSorting : BaseGeneticAlgorithm
     {
-        Random _rand = new Random((int)DateTime.Now.Ticks);
+        static readonly Random Rand = new Random((int)DateTime.Now.Ticks);
         private List<LeaderGroup> _leaderGroups = new List<LeaderGroup>();
         private List<Leader> _leaderpool = new List<Leader>();
         private LeaderSorterConfiguration Configuration { get; set; }
@@ -34,17 +34,14 @@ namespace GeneticAlgorithm.LeaderSorter
             set { _leaderGroups = value; }
         }
 
-        public override int GoodFitBonus { get; set; }
-        public override int BadFitReduction { get; set; }
-
         public override double Fitness
         {
             get
             {
                 var fitnessColourGroups = LeaderGroups.AsParallel().Sum(leaderGroup => leaderGroup.FitnessFunction(GoodFitBonus, BadFitReduction));
 
-                var protectedProgramFitness =
-                    (Math.Max(0, LeaderGroups.AsParallel().Count(x => x.LeaderList.Any(y => ProtectedPrograms.ContainsKey(y.Program))) - Configuration.ProtectedGroupSpreadFactor)) * BadFitReduction * 10;
+                var protectedProgramFitness = 0;
+                    //(LeaderGroups.AsParallel().Count(x => x.LeaderList.Any(y => ProtectedPrograms.ContainsKey(y.Program))) - Configuration.ProtectedGroupSpreadFactor) * BadFitReduction * 10;
 
                 var traitFitness = CalculateTraitFitness();
 
@@ -56,18 +53,34 @@ namespace GeneticAlgorithm.LeaderSorter
 
         private double CalculateLeaderTypeFitness()
         {
+            var fitness = 0;
             var dh = LeaderGroups.AsParallel().Max(x => x.Huges) - LeaderGroups.Min(x => x.Huges);
             var db = LeaderGroups.AsParallel().Max(x => x.Bigs) - LeaderGroups.Min(x => x.Bigs);
-            return (dh + db) * BadFitReduction;
+            if (dh < 2) fitness += GoodFitBonus;
+            else fitness += dh * BadFitReduction;
+            if (db < 2) fitness += GoodFitBonus;
+            else fitness += db * BadFitReduction;
+
+            return fitness;
         }
 
         private double CalculateTraitFitness()
         {
+            var fitness = 0;
             var dd = LeaderGroups.AsParallel().Max(x => x.DirectorshipsHeld) - LeaderGroups.Min(x => x.DirectorshipsHeld);
             var dc = LeaderGroups.AsParallel().Max(x => x.CoopsInFall) - LeaderGroups.Min(x => x.CoopsInFall);
             var dh = LeaderGroups.AsParallel().Max(x => x.Hems) - LeaderGroups.Min(x => x.Hems);
             var dr = LeaderGroups.AsParallel().Max(x => x.Returnings) - LeaderGroups.Min(x => x.Returnings);
-            return (dd + dc + dh + dr) * BadFitReduction;
+            if (dd < 2) fitness += GoodFitBonus;
+            else fitness += dd * BadFitReduction;
+            if (dc < 2) fitness += GoodFitBonus;
+            else fitness += dc * BadFitReduction;
+            if (dh < 2) fitness += GoodFitBonus;
+            else fitness += dh * BadFitReduction;
+            if (dr < 2) fitness += GoodFitBonus;
+            else fitness += dr * BadFitReduction;
+
+            return fitness;
         }
 
         internal double MaxValue
@@ -84,19 +97,18 @@ namespace GeneticAlgorithm.LeaderSorter
 
         public override void MutatePopulation()
         {
-            _rand = new Random((int)DateTime.Now.Ticks);
-            var upper = _rand.Next(10, 20);
+            var upper = Rand.Next(10, 20);
             for (var i = 0; i < upper; i++)
             {
                 //2 Random Numbers for choosing which lists
-                var randIndex = _rand.PickUniqueRandomNumbers(2, _leaderGroups.Count);
+                var randIndex = Rand.PickUniqueRandomNumbers(2, _leaderGroups.Count);
                 if (randIndex[0] == randIndex[1]) continue;
                 var list1 = _leaderGroups[randIndex[0]].LeaderList;
                 var list2 = _leaderGroups[randIndex[1]].LeaderList;
 
                 //2 random numbers corresponding to the number of leaders per list
-                var list1Index = _rand.Next(list1.Count);
-                var list2Index = _rand.Next(list2.Count);
+                var list1Index = Rand.Next(list1.Count);
+                var list2Index = Rand.Next(list2.Count);
 
                 var itemList1 = list1.ElementAt(list1Index);
                 var itemList2 = list2.ElementAt(list2Index);

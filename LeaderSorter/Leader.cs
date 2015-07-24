@@ -28,7 +28,7 @@ namespace GeneticAlgorithm.LeaderSorter
         private readonly string _firstname;
         private readonly string _lastname;
         private readonly string _perferredname;
-        
+
         public List<Traits> Traits;
 
         public Guid LeaderId;
@@ -66,19 +66,20 @@ namespace GeneticAlgorithm.LeaderSorter
 
         public override string ToString()
         {
-            return string.Format("{0}-{1},", _firstname, _lastname);
+            return string.Format("{0}-{1} \t {2}", _firstname, _lastname, Program);
         }
 
         public string PrettyPrint()
         {
-
-            var blacklistnames = new StringBuilder();
-            BlackList.ForEach(x => blacklistnames.AppendFormat("{0} ", x.ToString()));
-            var whitelistnames = new StringBuilder();
-            WhiteList.ForEach(x => whitelistnames.AppendFormat("{0} ", x.ToString()));
-            return string.Format("{0} \t: F - {1} : E - {2}", this, whitelistnames, blacklistnames);
+            var sb = new StringBuilder();
+            foreach (var trait in Traits)
+            {
+                sb.Append(string.Format(" {0} ",trait));
+            }
+            
+            return string.Format("{0}, {1} - {2}", this, LeaderType, sb );
         }
-        
+
     }
 
     public static class LeaderExtensions
